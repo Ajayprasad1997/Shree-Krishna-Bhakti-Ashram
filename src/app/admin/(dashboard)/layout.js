@@ -1,0 +1,1 @@
+import Admin from '@/components/Admin';export default function Layout({children}){return <Admin>{children}</Admin>};

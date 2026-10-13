@@ -1,0 +1,1 @@
+import AdminPages from '@/components/AdminPages';export default function Page(){return <AdminPages type="gallery"/>}

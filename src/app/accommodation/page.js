@@ -1,0 +1,1 @@
+import Shell from '@/components/Shell';import Inner from '@/components/Inner';export const metadata={title:'Accommodation'};export default function Page(){return <Shell><Inner type="accommodation"/></Shell>}
