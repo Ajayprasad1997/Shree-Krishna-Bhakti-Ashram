@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -45,22 +44,14 @@ function Title({ eyebrow, title, accent, center = false }) {
         textAlign: center ? "center" : "left",
       }}
     >
-      {eyebrow && (
-        <span className="section-eyebrow">
-          {eyebrow}
-        </span>
-      )}
+      {eyebrow && <span className="section-eyebrow">{eyebrow}</span>}
 
       <h2 className="section-title">
-        {title}{" "}
-        <em className="section-title-accent">
-          {accent}
-        </em>
+        {title} <em className="section-title-accent">{accent}</em>
       </h2>
     </div>
   );
 }
-
 
 const popularFacilities = [
   {
@@ -185,21 +176,24 @@ export default function FacilitiesSection() {
   return (
     <section className="facilities-section section" id="facilities">
       <div className="container">
-
         {/* SECTION HEADING */}
 
         <div className="facilities-heading">
-          <Title
-            eyebrow="ASHRAM FACILITIES"
-            title="Simple Comfort,"
-            accent="Sacred Surroundings"
-            center
-          />
+          
+          <div className="section-head centered">
+            <div className="eyebrow">
+              <span className="eyeline"></span> ASHRAM FACILITIES
+              <span className="eyeline"></span>
+            </div>
+            <h2>
+              Simple Comfort, &amp; <em>Sacred Surroundings</em>
+            </h2>
+          </div>
 
           <p className="facilities-intro">
-            Experience a peaceful stay in the divine land of Vrindavan.
-            Our thoughtfully arranged facilities bring together modern
-            comfort, warm hospitality and a spiritually enriching atmosphere.
+            Experience a peaceful stay in the divine land of Vrindavan. Our
+            thoughtfully arranged facilities bring together modern comfort, warm
+            hospitality and a spiritually enriching atmosphere.
           </p>
         </div>
 
@@ -260,16 +254,19 @@ export default function FacilitiesSection() {
 
         {/* ALL FACILITIES */}
 
-        <div className="facilities-category-heading">
-          <span className="facilities-label">
-            DISCOVER MORE
-          </span>
-
-          <h3>Thoughtfully Designed for Your Stay</h3>
-
-          <p>
-            From comfortable rooms to peaceful outdoor spaces,
-            discover everything available during your stay.
+        <div className="facilities-heading">
+          <div className="section-head centered">
+            <div className="eyebrow">
+              <span className="eyeline"></span>DISCOVER MORE
+              <span className="eyeline"></span>
+            </div>
+            <h2>
+              Thoughtfully Designed for <em>Your Stay</em>
+            </h2>
+          </div>
+          <p className="facilities-intro">
+            From comfortable rooms to peaceful outdoor spaces, discover
+            everything available during your stay.
           </p>
         </div>
 
@@ -278,10 +275,7 @@ export default function FacilitiesSection() {
             const Icon = category.icon;
 
             return (
-              <article
-                className="facility-category-card"
-                key={category.title}
-              >
+              <article className="facility-category-card" key={category.title}>
                 <div className="facility-category-top">
                   <div className="facility-category-icon">
                     <Icon size={25} strokeWidth={1.6} />
@@ -338,9 +332,7 @@ export default function FacilitiesSection() {
         </div>
 
         {/* CTA */}
-<GoogleReviews />
-          
-
+        <GoogleReviews />
       </div>
     </section>
   );

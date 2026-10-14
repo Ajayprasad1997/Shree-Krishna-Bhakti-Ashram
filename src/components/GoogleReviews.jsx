@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -37,35 +36,30 @@ export default function GoogleReviews() {
   const reviews = data?.reviews || [];
 
   function previous() {
-    setActive((current) =>
-      current === 0 ? reviews.length - 1 : current - 1
-    );
+    setActive((current) => (current === 0 ? reviews.length - 1 : current - 1));
   }
 
   function next() {
-    setActive((current) =>
-      current === reviews.length - 1 ? 0 : current + 1
-    );
+    setActive((current) => (current === reviews.length - 1 ? 0 : current + 1));
   }
 
   return (
     <section className="google-reviews-section">
       <div className="reviews-container">
-        <div className="reviews-heading">
-          <span className="reviews-eyebrow">
-            <span className="reviews-lotus">✦</span>
-            WORDS FROM OUR GUESTS
-          </span>
-
-          <h2>
-            Blessed Moments,
-            <br />
-            <em>Beautiful Memories</em>
-          </h2>
-
-          <p>
-            Discover what our guests share about their spiritual
-            stay at Shree Krishna Bhakti Ashram, Vrindavan.
+        <div className="facilities-heading">
+          <div className="section-head centered">
+            <div className="eyebrow">
+              <span className="eyeline"></span>WORDS FROM OUR GUESTS
+              <span className="eyeline"></span>
+            </div>
+            <h2>
+              Blessed Moments, &amp; <em>Beautiful Memories</em>
+            </h2>
+          </div>
+          
+          <p className="facilities-intro">
+            Discover what our guests share about their spiritual stay at Shree
+            Krishna Bhakti Ashram, Vrindavan.
           </p>
         </div>
 
@@ -124,9 +118,7 @@ export default function GoogleReviews() {
                           key={star}
                           size={15}
                           fill="currentColor"
-                          className={
-                            star <= review.rating ? "" : "empty-star"
-                          }
+                          className={star <= review.rating ? "" : "empty-star"}
                         />
                       ))}
                     </div>
@@ -202,11 +194,7 @@ export default function GoogleReviews() {
           <div className="reviews-empty">
             <p>Guest reviews are temporarily unavailable.</p>
             {data?.googleMapsUri && (
-              <a
-                href={data.googleMapsUri}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={data.googleMapsUri} target="_blank" rel="noreferrer">
                 Explore reviews on Google <ExternalLink size={15} />
               </a>
             )}

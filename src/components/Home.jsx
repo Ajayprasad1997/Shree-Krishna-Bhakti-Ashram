@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import FacilitiesSection from "@/components/FacilitiesSection";
+import EventsCarousel from "@/components/EventsCarousel";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -144,7 +145,7 @@ export default function Home() {
           <div className="intro-visual reveal">
             <div
               className="intro-photo"
-              style={{ backgroundImage: `url('${photos.temple}')` }}
+              style={{ backgroundImage: `url('${photos.about}')` }}
             />
             <div className="intro-seal">
               <Flower2 /> ROOTED IN DEVOTION
@@ -203,7 +204,7 @@ export default function Home() {
           <div className="section-top">
             <Title
               eyebrow="REST IN DIVINE COMFORT"
-              title="Our 10 Rooms in"
+              title="Our Rooms in"
               accent="Vrindavan"
             />
             <p>
@@ -262,7 +263,7 @@ export default function Home() {
             
           </div>
           <div className="preview-gallery">
-            {data.gallery.slice(0, 4).map((g) => (
+            {data.gallery.slice(1 / 4).map((g) => (
               <Link href="/gallery" key={g.id}>
                 <img src={g.image} alt={g.title} />
                 <span>{g.title} ↗</span>
@@ -276,7 +277,9 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="section">
+<EventsCarousel events={data.events} />
+
+      {/* <section className="section">
         <div className="container">
           <Title
             eyebrow="CELEBRATE THE DIVINE"
@@ -310,7 +313,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
       <FacilitiesSection />
       <section className="cta">
         <div className="container cta-inner">

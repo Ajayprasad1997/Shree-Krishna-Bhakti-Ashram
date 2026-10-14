@@ -167,7 +167,7 @@ export function Activities() {
             </span>
 
             {/* Decorative Symbol */}
-            <span className="activity-decoration">✦</span>
+            {/* <span className="activity-decoration">✦</span> */}
           </div>
 
           {/* Activity Content */}
