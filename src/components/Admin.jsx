@@ -1,1 +1,95 @@
-'use client';import {useEffect,useState} from 'react';import {useRouter,usePathname} from 'next/navigation';import Link from 'next/link';import {LayoutDashboard,House,Images,CalendarDays,BedDouble,ClipboardList,MessageSquare,Settings,LogOut,Menu,X,ExternalLink} from 'lucide-react';import {useStore} from './Store';const links=[['Dashboard','/admin',LayoutDashboard],['Homepage CMS','/admin/homepage',House],['Gallery Manager','/admin/gallery',Images],['Event Manager','/admin/events',CalendarDays],['Accommodation Manager','/admin/accommodation',BedDouble],['Booking Enquiries','/admin/bookings',ClipboardList],['Contact Enquiries','/admin/enquiries',MessageSquare],['Contact Settings','/admin/settings',Settings]];export default function Admin({children}){const router=useRouter(),path=usePathname(),[auth,setAuth]=useState(false),[open,setOpen]=useState(false);useEffect(()=>{if(sessionStorage.getItem('skba_demo_login')!=='yes')router.replace('/admin/login');else setAuth(true)},[router]);if(!auth)return <div className="admin-loading">Checking demo login…</div>;return <div className="admin-shell"><aside className={'admin-sidebar '+(open?'open':'')}><Link href="/admin" className="admin-brand"><span>ॐ</span><div><b>SHREE KRISHNA</b><small>ASHRAM ADMIN</small></div></Link><p className="sidebar-label">MANAGEMENT</p>{links.map(([name,href,Icon])=><Link onClick={()=>setOpen(false)} className={path===href?'active':''} key={href} href={href}><Icon size={18}/>{name}</Link>)}<div className="sidebar-bottom"><Link href="/" target="_blank"><ExternalLink size={17}/> View Website</Link><button onClick={()=>{sessionStorage.removeItem('skba_demo_login');router.push('/admin/login')}}><LogOut size={17}/> Logout</button></div></aside><div className="admin-main"><header className="admin-top"><button className="admin-menu" onClick={()=>setOpen(!open)} aria-label="Toggle sidebar">{open?<X/>:<Menu/>}</button><span>Shree Krishna Bhakti Ashram <small> / Demo CMS</small></span><span className="admin-avatar">A</span></header><div className="admin-content">{children}</div></div></div>}
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  LayoutDashboard,
+  House,
+  Images,
+  CalendarDays,
+  BedDouble,
+  ClipboardList,
+  MessageSquare,
+  Settings,
+  LogOut,
+  Menu,
+  X,
+  ExternalLink,
+} from "lucide-react";
+import { useStore } from "./Store";
+const links = [
+  ["Dashboard", "/admin", LayoutDashboard],
+  ["Homepage CMS", "/admin/homepage", House],
+  ["Gallery Manager", "/admin/gallery", Images],
+  ["Event Manager", "/admin/events", CalendarDays],
+  ["Accommodation Manager", "/admin/accommodation", BedDouble],
+  ["Booking Enquiries", "/admin/bookings", ClipboardList],
+  ["Contact Enquiries", "/admin/enquiries", MessageSquare],
+  ["Contact Settings", "/admin/settings", Settings],
+];
+export default function Admin({ children }) {
+  const router = useRouter(),
+    path = usePathname(),
+    [auth, setAuth] = useState(false),
+    [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (sessionStorage.getItem("skba_demo_login") !== "yes")
+      router.replace("/admin/login");
+    else setAuth(true);
+  }, [router]);
+  if (!auth) return <div className="admin-loading">Admin login…</div>;
+  return (
+    <div className="admin-shell">
+      <aside className={"admin-sidebar " + (open ? "open" : "")}>
+        <Link href="/admin" className="admin-brand">
+          <span>ॐ</span>
+          <div>
+            <b>SHREE KRISHNA</b>
+            <small>ASHRAM ADMIN</small>
+          </div>
+        </Link>
+        <p className="sidebar-label">MANAGEMENT</p>
+        {links.map(([name, href, Icon]) => (
+          <Link
+            onClick={() => setOpen(false)}
+            className={path === href ? "active" : ""}
+            key={href}
+            href={href}
+          >
+            <Icon size={18} />
+            {name}
+          </Link>
+        ))}
+        <div className="sidebar-bottom">
+          <Link href="/" target="_blank">
+            <ExternalLink size={17} /> View Website
+          </Link>
+          <button
+            onClick={() => {
+              sessionStorage.removeItem("skba_demo_login");
+              router.push("/admin/login");
+            }}
+          >
+            <LogOut size={17} /> Logout
+          </button>
+        </div>
+      </aside>
+      <div className="admin-main">
+        <header className="admin-top">
+          <button
+            className="admin-menu"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle sidebar"
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+          <span>
+            Shree Krishna Bhakti Ashram
+          </span>
+          <span className="admin-avatar">A</span>
+        </header>
+        <div className="admin-content">{children}</div>
+      </div>
+    </div>
+  );
+}
