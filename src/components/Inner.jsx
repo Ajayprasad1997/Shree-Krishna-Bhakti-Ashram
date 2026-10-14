@@ -14,7 +14,11 @@ import {
 import { useStore } from "./Store";
 import { Banner, Title, RoomCards, Activities } from "./Sections";
 import { photos } from "@/lib/demo";
-export default function Inner({ type }) {
+
+const mapUrl =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3536.646690576252!2d77.68337729999999!3d27.5734735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39736e3b497ce363%3A0x56fb8fa1c281eec5!2sShree%20Krishna%20Bhakti%20Ashram!5e0!3m2!1sen!2sin!4v1791986958808!5m2!1sen!2sin";
+
+export default function Inner({ type, hideBanner = false }) {
   const { data, enquire, save } = useStore(),
     [category, setCategory] = useState("All"),
     [zoom, setZoom] = useState(null),
@@ -246,6 +250,7 @@ export default function Inner({ type }) {
         </section>
       )}
       {type === "contact" && (
+        
         <section className="section">
           <div className="container contact-grid">
             <div>
@@ -262,12 +267,12 @@ export default function Inner({ type }) {
                 <p>
                   <Phone />
                   {data.settings.phone ||
-                    "Phone number to be added by management"}
+                    "+91 9876543456"}
                 </p>
                 <p>
                   <Mail />
                   {data.settings.email ||
-                    "Email address to be added by management"}
+                    "demo@gmail.com"}
                 </p>
                 <p>{data.settings.hours}</p>
               </div>
@@ -290,7 +295,18 @@ export default function Inner({ type }) {
                 </a>
               ) : (
                 <div className="map-placeholder">
-                  <MapPin /> Google Maps link will be added by management
+                  <div className="contact-map">
+            <iframe
+              src={mapUrl}
+              width="100%"
+              height="350"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Shree Krishna Bhakti Ashram Google Maps"
+            />
+          </div>
                 </div>
               )}
             </div>

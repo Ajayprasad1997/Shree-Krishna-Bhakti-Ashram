@@ -33,7 +33,7 @@ import {
   Plug,
 } from "lucide-react";
 
-import GoogleReviews from "@/components/GoogleReviews";
+
 // Adjust the Title import according to your project.
 
 function Title({ eyebrow, title, accent, center = false }) {
@@ -332,7 +332,7 @@ export default function FacilitiesSection() {
         </div>
 
         {/* CTA */}
-        <GoogleReviews />
+        
       </div>
     </section>
   );

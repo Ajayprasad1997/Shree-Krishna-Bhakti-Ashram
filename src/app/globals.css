@@ -3568,3 +3568,218 @@ span, p {
     transition: none !important;
   }
 }
+
+
+.google-reviews-section {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.google-reviews-section .reviews-container {
+  width: min(1200px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.google-reviews-section .reviews-swiper {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  visibility: visible;
+}
+
+.google-reviews-section .reviews-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.google-reviews-section .reviews-swiper .swiper-slide {
+  display: flex;
+  height: auto;
+}
+
+.google-reviews-section .review-card {
+  display: flex !important;
+  flex-direction: column;
+  width: 100%;
+  min-height: 300px;
+  height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #333333;
+  border: 1px solid #eee4d3;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(35, 25, 15, 0.07);
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.google-reviews-section .review-text {
+  display: block !important;
+  color: #4b4540 !important;
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: 1 !important;
+  visibility: visible !important;
+  margin: 0 0 24px;
+  flex: 1;
+}
+
+.google-reviews-section .review-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.google-reviews-section .reviews-stars {
+  display: flex;
+  gap: 3px;
+  color: #e9a323;
+}
+
+.google-reviews-section .review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.google-reviews-section .review-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #7a1f2b;
+  color: white;
+  font-weight: 700;
+}
+
+.google-reviews-section .review-author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.google-reviews-section .review-author-info strong {
+  color: #292522;
+}
+
+.google-reviews-section .review-author-info span {
+  color: #777777;
+  font-size: 12px;
+}
+
+.google-reviews-section .review-google-g {
+  margin-left: auto;
+  color: #4285f4;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.google-reviews-section .review-source-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  margin-top: 18px;
+  color: #7a1f2b;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.google-reviews-section .reviews-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.google-reviews-section .reviews-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #d8ad55;
+  opacity: 0.55;
+  cursor: pointer;
+}
+
+.google-reviews-section .reviews-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: #7a1f2b;
+  opacity: 1;
+}
+
+.google-reviews-section .reviews-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.google-reviews-section .reviews-arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.google-reviews-section .reviews-prev,
+.google-reviews-section .reviews-next {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e6d7bd;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #7a1f2b;
+  cursor: pointer;
+}
+
+@media (min-width: 640px) {
+  .google-reviews-section .reviews-swiper .swiper-slide {
+    height: auto;
+  }
+}
+
+
+.back-to-top {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 9999;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #7b263a;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+  background: #b99450;
+  transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    width: 44px;
+    height: 44px;
+    right: 16px;
+    bottom: 18px;
+  }
+}

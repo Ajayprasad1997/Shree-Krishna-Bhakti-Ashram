@@ -10,7 +10,9 @@ import {
   Phone,
   Mail,
   Heart,
+  ArrowUp,
 } from "lucide-react";
+
 import { useStore } from "./Store";
 import Booking from "./Booking";
 const links = [
@@ -147,6 +149,16 @@ export default function Shell({ children }) {
 </Link>
 
         </div>
+        {/* Back To Top Button */}
+<button
+  type="button"
+  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+  className="back-to-top"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <ArrowUp size={22} strokeWidth={2.5} />
+</button>
       </footer>
       <Booking />
     </>

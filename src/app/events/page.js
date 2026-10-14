@@ -1,1 +1,10 @@
-import Shell from '@/components/Shell';import Inner from '@/components/Inner';export const metadata={title:'Events & Activities'};export default function Page(){return <Shell><Inner type="events"/></Shell>}
+import Shell from "@/components/Shell";
+import Inner from "@/components/Inner";
+export const metadata = { title: "Events & Activities" };
+export default function Page() {
+  return (
+    <Shell>
+      <Inner type="events" />
+    </Shell>
+  );
+}

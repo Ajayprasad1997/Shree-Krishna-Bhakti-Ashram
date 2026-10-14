@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import EventsCarousel from "@/components/EventsCarousel";
+import GoogleReviews from "@/components/GoogleReviews";
+import ContactSection from "@/components/ContactSection";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -42,6 +44,9 @@ import {
 import { useStore } from "./Store";
 import { Title, RoomCards, Activities } from "./Sections";
 import { photos } from "@/lib/demo";
+// import Shell from "@/components/Shell";
+import Inner from "@/components/Inner";
+export const metadata = { title: "Contact Us" };
 export default function Home() {
   const { data, enquire } = useStore(),
     [slide, setSlide] = useState(0);
@@ -137,8 +142,7 @@ export default function Home() {
         </div>
       </section>
       <div className="mantra-strip">
-        ✦ HARE KRISHNA HARE KRISHNA ✦ KRISHNA KRISHNA HARE HARE ✦ HARE RAMA HARE
-        RAMA ✦
+        ✦ HARE KRISHNA HARE KRISHNA ✦ KRISHNA KRISHNA HARE HARE ✦ HARE RAMA HARE RAMA ✦ RAMA RAMA HARE HARE ✦
       </div>
       <section className="section">
         <div className="container intro-grid">
@@ -315,6 +319,22 @@ export default function Home() {
         </div>
       </section> */}
       <FacilitiesSection />
+     <GoogleReviews />
+      {/* <Inner type="contact" /> */}
+       <ContactSection
+  data={data}
+  Title={Title}
+  save={(key, updater) => {
+    const old = JSON.parse(
+      localStorage.getItem(key) || "[]"
+    );
+
+    const updated =
+      typeof updater === "function" ? updater(old) : updater;
+
+    localStorage.setItem(key, JSON.stringify(updated));
+  }}
+/>
       <section className="cta">
         <div className="container cta-inner">
           <div>

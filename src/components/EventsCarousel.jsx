@@ -104,25 +104,28 @@ export default function EventsCarousel({ events = [] }) {
               <article className="devotional-event-card">
 
                 {/* Image */}
-                <div className="devotional-event-image">
-                  <Image
-                    src={event.photos}
-                    alt={event.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="devotional-event-img"
-                  />
+                
+{/* Image */}
+<div className="devotional-event-image">
+  <Image
+    src={event.image || "/assets/images/shree-krishna-ashram-banner.jpg"}
+    alt={event.title || "Ashram spiritual event"}
+    fill
+    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+    className="devotional-event-img"
+  />
 
-                  <div className="devotional-event-overlay" />
+  <div className="devotional-event-overlay" />
 
-                  <span className="devotional-event-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+  <span className="devotional-event-number">
+    {String(index + 1).padStart(2, "0")}
+  </span>
 
-                  <span className="devotional-event-category">
-                    {event.category}
-                  </span>
-                </div>
+  <span className="devotional-event-category">
+    {event.category}
+  </span>
+</div>
+
 
                 {/* Content */}
                 <div className="devotional-event-content">

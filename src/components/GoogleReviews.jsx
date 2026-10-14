@@ -1,47 +1,58 @@
+
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import {
   Star,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
   Quote,
-  LoaderCircle,
 } from "lucide-react";
 
+import "swiper/css";
+
+const GOOGLE_REVIEWS_URL =
+  "https://share.google/2M5taPmxSSXxsVVax";
+
+const reviews = [
+  {
+    id: 1,
+    name: "Sita",
+    rating: 5,
+    text: "The people are very nice and helpful. The place has wonderful vibes and a peaceful atmosphere. It is close to many sacred places and is a lovely choice for anyone looking for peace and a local Vrindavan experience.",
+  },
+  {
+    id: 2,
+    name: "Joydeep",
+    rating: 5,
+    text: "The long corridor in front of the rooms was an added attraction and made the stay experience special.",
+  },
+  {
+    id: 3,
+    name: "Letitia",
+    rating: 5,
+    text: "A safe, calm and contemplative atmosphere with gentle, friendly, polite and helpful staff. The mandir was peaceful, and the location was convenient for visiting the main temples.",
+  },
+  {
+    id: 4,
+    name: "Mick",
+    rating: 5,
+    text: "Vrindavan is a busy city, but Shree Krishna Bhakti Ashram offers a quiet sanctuary while still being close to the local attractions.",
+  },
+  {
+    id: 5,
+    name: "Reshma Rajesh Jamdar",
+    rating: 5,
+    text: "The property was centrally located and clean, making it convenient for exploring Vrindavan.",
+  },
+];
+
 export default function GoogleReviews() {
-  const [data, setData] = useState(null);
+  const swiperRef = useRef(null);
   const [active, setActive] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadReviews() {
-      try {
-        const response = await fetch("/api/google-reviews");
-        if (!response.ok) throw new Error("Reviews unavailable");
-
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadReviews();
-  }, []);
-
-  const reviews = data?.reviews || [];
-
-  function previous() {
-    setActive((current) => (current === 0 ? reviews.length - 1 : current - 1));
-  }
-
-  function next() {
-    setActive((current) => (current === reviews.length - 1 ? 0 : current + 1));
-  }
 
   return (
     <section className="google-reviews-section">
@@ -49,162 +60,165 @@ export default function GoogleReviews() {
         <div className="facilities-heading">
           <div className="section-head centered">
             <div className="eyebrow">
-              <span className="eyeline"></span>WORDS FROM OUR GUESTS
-              <span className="eyeline"></span>
+              <span className="eyeline" />
+              WORDS FROM OUR GUESTS
+              <span className="eyeline" />
             </div>
+
             <h2>
-              Blessed Moments, &amp; <em>Beautiful Memories</em>
+              Blessed Moments, &amp;{" "}
+              <em>Beautiful Memories</em>
             </h2>
           </div>
-          
+
           <p className="facilities-intro">
-            Discover what our guests share about their spiritual stay at Shree
-            Krishna Bhakti Ashram, Vrindavan.
+            Discover guest experiences of the peaceful atmosphere
+            and spiritual surroundings of Shree Krishna Bhakti
+            Ashram, Vrindavan.
           </p>
         </div>
 
+        {/* Summary */}
         <div className="reviews-summary">
           <div className="google-mark" aria-label="Google">
             <span>G</span>
           </div>
 
           <div className="reviews-score">
-            <strong>{data?.rating ?? "—"}</strong>
-            <div className="reviews-stars" aria-label="Google rating">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <Star key={star} fill="currentColor" />
-              ))}
-            </div>
-            <span>
-              {data
-                ? `${data.totalReviews} Google reviews`
-                : "Guest experiences"}
-            </span>
+            <strong>Guest Reviews</strong>
+            <span>Guest experiences</span>
           </div>
 
-          {data?.googleMapsUri && (
-            <a
-              href={data.googleMapsUri}
-              target="_blank"
-              rel="noreferrer"
-              className="reviews-all-link"
-            >
-              Read All Reviews <ExternalLink size={15} />
-            </a>
-          )}
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="reviews-all-link"
+          >
+            Read Reviews on Google
+            <ExternalLink size={15} />
+          </a>
         </div>
 
-        {loading ? (
-          <div className="reviews-loading">
-            <LoaderCircle className="reviews-spinner" size={28} />
-            <span>Loading guest experiences...</span>
-          </div>
-        ) : reviews.length > 0 ? (
-          <>
-            <div className="reviews-carousel">
-              {reviews.map((review, index) => (
-                <article
-                  key={`${review.name}-${index}`}
-                  className={`review-card ${
-                    index === active ? "review-card-active" : ""
-                  }`}
-                >
-                  <div className="review-card-top">
-                    <Quote size={30} className="review-quote" />
+       
 
-                    <div className="reviews-stars small-stars">
-                      {[1, 2, 3, 4, 5].map((star) => (
+        {/* Reviews */}
+        <Swiper
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
+          onSlideChange={(swiper) => {
+            setActive(swiper.realIndex);
+          }}
+          slidesPerView={1}
+          slidesPerGroup={1}
+          spaceBetween={20}
+          speed={500}
+          watchOverflow
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              slidesPerGroup: 1,
+              spaceBetween: 24,
+            },
+          }}
+          className="reviews-swiper"
+        >
+          {reviews.map((review) => (
+            <SwiperSlide key={review.id}>
+              <article className="review-card">
+                <div className="review-card-top">
+                  <Quote
+                    size={30}
+                    className="review-quote"
+                  />
+
+                  <div className="reviews-stars small-stars">
+                    {Array.from({ length: review.rating }).map(
+                      (_, index) => (
                         <Star
-                          key={star}
+                          key={index}
                           size={15}
                           fill="currentColor"
-                          className={star <= review.rating ? "" : "empty-star"}
                         />
-                      ))}
-                    </div>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <p className="review-text">
+                  {review.text}
+                </p>
+
+                <div className="review-author">
+                  <div className="review-avatar">
+                    {review.name.charAt(0).toUpperCase()}
                   </div>
 
-                  <p className="review-text">
-                    {review.text || "Shared a rating on Google."}
-                  </p>
-
-                  <div className="review-author">
-                    <div className="review-avatar">
-                      {review.photo ? (
-                        <img
-                          src={review.photo}
-                          alt=""
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        review.name.charAt(0).toUpperCase()
-                      )}
-                    </div>
-
-                    <div className="review-author-info">
-                      <strong>{review.name}</strong>
-                      <span>{review.date}</span>
-                    </div>
-
-                    <span className="review-google-g">G</span>
+                  <div className="review-author-info">
+                    <strong>{review.name}</strong>
+                    <span>Guest Experience</span>
                   </div>
 
-                  {review.url && (
-                    <a
-                      href={review.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="review-source-link"
-                    >
-                      View on Google <ExternalLink size={13} />
-                    </a>
-                  )}
-                </article>
-              ))}
-            </div>
+                  <span className="review-google-g">G</span>
+                </div>
 
-            <div className="reviews-controls">
-              <span className="reviews-counter">
-                {String(active + 1).padStart(2, "0")} /{" "}
-                {String(reviews.length).padStart(2, "0")}
-              </span>
+                <a
+                  href={GOOGLE_REVIEWS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="review-source-link"
+                >
+                  Explore on Google
+                  <ExternalLink size={13} />
+                </a>
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-              <div className="reviews-dots">
-                {reviews.map((review, index) => (
-                  <button
-                    key={`${review.name}-dot-${index}`}
-                    onClick={() => setActive(index)}
-                    aria-label={`Show review ${index + 1}`}
-                    className={index === active ? "active" : ""}
-                  />
-                ))}
-              </div>
+        {/* Dots */}
+        {/* <div className="reviews-dots">
+          {reviews.map((review, index) => (
+            <button
+              key={review.id}
+              type="button"
+              className={`reviews-dot ${
+                active === index ? "active" : ""
+              }`}
+              onClick={() => swiperRef.current?.slideTo(index)}
+              aria-label={`Go to review ${index + 1}`}
+            />
+          ))}
+        </div> */}
+         {/* Controls */}
+        <div className="reviews-controls">
+          <span className="reviews-counter">
+            {String(active + 1).padStart(2, "0")}
+            {" / "}
+            {String(reviews.length).padStart(2, "0")}
+          </span>
 
-              <div className="reviews-arrows">
-                <button onClick={previous} aria-label="Previous review">
-                  <ChevronLeft />
-                </button>
-                <button onClick={next} aria-label="Next review">
-                  <ChevronRight />
-                </button>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div className="reviews-empty">
-            <p>Guest reviews are temporarily unavailable.</p>
-            {data?.googleMapsUri && (
-              <a href={data.googleMapsUri} target="_blank" rel="noreferrer">
-                Explore reviews on Google <ExternalLink size={15} />
-              </a>
-            )}
+          <div className="reviews-arrows">
+            <button
+              type="button"
+              className="reviews-prev"
+              aria-label="Previous review"
+              onClick={() => swiperRef.current?.slidePrev()}
+            >
+              <ChevronLeft size={22} />
+            </button>
+
+            <button
+              type="button"
+              className="reviews-next"
+              aria-label="Next review"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <ChevronRight size={22} />
+            </button>
           </div>
-        )}
-
-        {/* <p className="reviews-attribution">
-          Reviews provided by Google. Reviewer names and content
-          are displayed as returned by Google.
-        </p> */}
+        </div>
       </div>
     </section>
   );

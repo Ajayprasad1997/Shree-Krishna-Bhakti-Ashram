@@ -1,1 +1,10 @@
-import Shell from '@/components/Shell';import Inner from '@/components/Inner';export const metadata={title:'Contact Us'};export default function Page(){return <Shell><Inner type="contact"/></Shell>}
+import Shell from "@/components/Shell";
+import Inner from "@/components/Inner";
+export const metadata = { title: "Contact Us" };
+export default function Page() {
+  return (
+    <Shell>
+      <Inner type="contact" />
+    </Shell>
+  );
+}
