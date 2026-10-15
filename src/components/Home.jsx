@@ -44,8 +44,6 @@ import {
 import { useStore } from "./Store";
 import { Title, RoomCards, Activities } from "./Sections";
 import { photos } from "@/lib/demo";
-// import Shell from "@/components/Shell";
-import Inner from "@/components/Inner";
 export const metadata = { title: "Contact Us" };
 export default function Home() {
   const { data, enquire } = useStore(),

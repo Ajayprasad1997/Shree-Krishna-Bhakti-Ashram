@@ -76,6 +76,34 @@ img {
   z-index: 20;
   box-shadow: 0 4px 20px #20170809;
 }
+.header {
+  position: relative;
+  width: 100%;
+  z-index: 1000;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    top 0.3s ease;
+}
+
+.header.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: headerSlideDown 0.3s ease;
+}
+
+@keyframes headerSlideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
 .brand {
   display: flex;
   align-items: center;
@@ -640,11 +668,12 @@ img {
 .quote-section {
   background:
     linear-gradient(90deg, #6d1b27ed, #6d1b27e8),
-    url("https://images.unsplash.com/photo-1548013146-72479768bada?w=1600&q=80")
+    url("/assets/images/shree-krishna-ashram-banner2.jpg")
       center/cover;
   color: #f9e8cc;
   text-align: center;
   padding: 82px 0;
+  background-attachment: fixed;
 }
 .quote-section svg {
   color: var(--gold);
@@ -1065,40 +1094,7 @@ footer {
   .header {
     height: 75px;
   }
-  .menu-btn {
-    display: grid;
-    place-items: center;
-    background: none;
-    border: 0;
-    margin-left: 15px;
-    color: var(--maroon);
-  }
-  .nav {
-    display: none;
-    position: absolute;
-    top: 75px;
-    left: 0;
-    right: 0;
-    background: #fffdf8;
-    padding: 25px 6%;
-    box-shadow: 0 20px 25px #0002;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 20px;
-  }
-  .nav.open {
-    display: flex;
-  }
-  .mobile-book {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 0;
-    background: var(--maroon);
-    color: white;
-    padding: 13px;
-    width: max-content;
-  }
+ 
   .intro-grid {
     grid-template-columns: 1fr;
     gap: 50px;
@@ -1265,10 +1261,11 @@ footer {
   .footer-grid > div:first-child {
     grid-column: span 2;
   }
-  .footer-bottom {
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+   .footer-bottom {
+	gap: 13px;
+	flex-wrap: wrap;
+	padding: 10px;
+}
   .form-row {
     grid-template-columns: 1fr;
   }
@@ -3783,3 +3780,79 @@ span, p {
     bottom: 18px;
   }
 }
+
+/* responsive css */
+  @media(max-width:1600px){
+
+  }
+  @media(max-width:1350px){
+.header {
+	padding: 0 2%;
+}
+.nav {
+  gap: 20px
+}
+  }
+
+  @media(max-width:1199px){
+     .menu-btn {
+    display: grid;
+    place-items: center;
+    background: none;
+    border: 0;
+    margin-left: 15px;
+    color: var(--maroon);
+  }
+  .nav {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    right: 0;
+    background: #fffdf8;
+    padding: 25px 6%;
+    box-shadow: 0 20px 25px #0002;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .nav.open {
+    display: flex;
+  }
+  .mobile-book {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 0;
+    background: var(--maroon);
+    color: white;
+    padding: 13px;
+    width: max-content;
+  }
+  }
+   @media(max-width:991px){
+     .mantra-strip {
+	gap: 5px;
+	font-size: 10px;
+	white-space: initial;
+	padding: 10px;
+	height: 55px;
+	line-height: 14px;
+	text-align: center;
+}
+  }
+
+   @media(max-width:767px){
+    
+  }
+  @media(max-width:575px){
+   
+  }
+  @media(max-width:480px){
+    
+  }
+
+  @media(max-width:400px){
+    
+  }
+/* End responsive css */

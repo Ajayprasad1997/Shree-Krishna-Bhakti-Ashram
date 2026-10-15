@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import {
   Menu,
   X,
@@ -15,6 +16,9 @@ import {
 
 import { useStore } from "./Store";
 import Booking from "./Booking";
+
+
+
 const links = [
   ["Home", "/"],
   ["About the Ashram", "/about"],
@@ -27,6 +31,23 @@ export default function Shell({ children }) {
   const { data, enquire } = useStore(),
     [menu, setMenu] = useState(false),
     path = usePathname();
+
+    
+const [scrolled, setScrolled] = useState(false);
+
+useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > 100);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
+
   return (
     <>
       <div className="topbar">
@@ -35,7 +56,7 @@ export default function Shell({ children }) {
           <MapPin size={13} /> Vrindavan, Uttar Pradesh ✦ राधे राधे
         </span>
       </div>
-      <header className="header">
+      <header className={`header ${scrolled ? "header-fixed" : ""}`}>
         <Link className="brand" href="/">
           <span className="brand-mark">ॐ</span>
           <span className="brand-copy">

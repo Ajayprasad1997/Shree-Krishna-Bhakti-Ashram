@@ -23,11 +23,11 @@ export const photos = {
     "/assets/images/rooms/room9.jpg",
     about:
     "/assets/images/sacred-retreat-in-vrindavan.png",
-    janmashtami: "/assets/images/events/janmashtami.jpg",
-    kirtan: "/assets/images/events/bhajan-kirtan.jpg",
-    meditation: "/assets/images/events/meditation.jpg",
-    vegetarian: "/assets/images/events/sattvic-food.jpg",
-    satsang: "/assets/images/events/satsang.jpg",
+    janmashtami: "/assets/images/events/janmashtami.png",
+    kirtan: "/assets/images/events/bhajan-kirtan.png",
+    meditation: "/assets/images/events/meditation.png",
+    vegetarian: "/assets/images/events/sattvic-food.png",
+    satsang: "/assets/images/events/satsang.png",
 };
 export const initial = {
   settings: {
