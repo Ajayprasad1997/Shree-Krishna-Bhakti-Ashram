@@ -1,4 +1,5 @@
 "use client";
+import { useRef } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -43,18 +44,71 @@ export function Banner({ eyebrow, title, description, image }) {
     </section>
   );
 }
-
 export function RoomCards({ all = false }) {
   const { data, enquire } = useStore();
 
+  const sliderRef = useRef(null);
+  const dragRef = useRef({
+    isDown: false,
+    startX: 0,
+    scrollLeft: 0,
+    moved: false,
+  });
+
+  const handleMouseDown = (e) => {
+    // Enable mouse dragging only in mobile-width preview
+    if (window.innerWidth > 767 || e.button !== 0) return;
+
+    dragRef.current.isDown = true;
+    dragRef.current.startX = e.clientX;
+    dragRef.current.scrollLeft = sliderRef.current.scrollLeft;
+    dragRef.current.moved = false;
+  };
+
+  const handleMouseMove = (e) => {
+  if (!dragRef.current.isDown || !sliderRef.current) return;
+
+  const distance = e.clientX - dragRef.current.startX;
+
+  if (Math.abs(distance) > 5) {
+    dragRef.current.moved = true;
+  }
+
+  if (dragRef.current.moved) {
+    e.preventDefault();
+
+    // Follow the mouse directly for natural dragging
+    sliderRef.current.scrollLeft =
+      dragRef.current.scrollLeft - distance;
+  }
+};
+
+  const stopDragging = () => {
+    dragRef.current.isDown = false;
+  };
+
   return (
-    <div className="room-grid room-grid-many">
+    <div
+      className="room-grid room-grid-luxury"
+      ref={sliderRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={stopDragging}
+      onMouseLeave={stopDragging}
+      onClickCapture={(e) => {
+        if (dragRef.current.moved) {
+          e.preventDefault();
+          e.stopPropagation();
+          dragRef.current.moved = false;
+        }
+      }}
+    >
       {data.rooms
         .filter((r) => r.published)
         .slice(0, all ? undefined : 10)
-        .map((r) => (
+        .map((r, index) => (
           <article
-            className="room-card reveal"
+            className={`room-card room-luxury-card room-layout-${index % 7}`}
             key={r.id}
             role="button"
             tabIndex={0}
@@ -67,8 +121,7 @@ export function RoomCards({ all = false }) {
               }
             }}
           >
-            {/* Room Image */}
-            <div className="room-image">
+            <div className="room-image room-luxury-image">
               <div
                 className="room-image-inner"
                 style={{
@@ -76,23 +129,22 @@ export function RoomCards({ all = false }) {
                 }}
               />
 
-              <span>ROOM {String(r.id).padStart(2, "0")}</span>
+              <span className="room-luxury-arrow">
+                <ArrowUpRight size={20} />
+              </span>
             </div>
 
-            {/* Room Information */}
-            <div className="room-info">
+            <div className="room-info room-luxury-info">
               <div>
-                <small>ASHRAM ACCOMMODATION</small>
-
+                <small>
+                  THE STAY COLLECTION /{" "}
+                  {String(index + 1).padStart(2, "0")}
+                </small>
                 <h3>{r.title}</h3>
-
-                <p>{r.description}</p>
-
-                <p className="amenities">{r.amenities}</p>
               </div>
 
-              <span className="room-arrow" aria-hidden="true">
-                <ArrowUpRight />
+              <span className="room-enquire">
+                Book Now <ArrowUpRight size={15} />
               </span>
             </div>
           </article>
@@ -143,48 +195,50 @@ const activities = [
 
 
 export function Activities() {
-  return (
-    <div className="activity-grid">
-      {activities.map((activity, index) => (
-        <article className="activity-card reveal" key={activity.title}>
+  const sliderRef = useRef(null);
 
-          {/* Activity Image */}
+  const slideNext = () => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+
+    const card = slider.querySelector(".activity-card");
+    if (!card) return;
+
+    const gap = 14;
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    const nextPosition = slider.scrollLeft + card.offsetWidth + gap;
+
+    slider.scrollTo({
+      left: nextPosition >= maxScroll - 5 ? 0 : nextPosition,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <div className="activity-grid" ref={sliderRef}>
+      {activities.map((activity) => (
+        <article
+          className="activity-card reveal"
+          key={activity.title}
+          onClick={slideNext}
+        >
           <div className="activity-image">
             <Image
               src={activity.image}
               alt={activity.title}
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              sizes="(max-width: 640px) 83vw, (max-width: 1024px) 50vw, 33vw"
               className="activity-img"
             />
-
-            {/* Gradient Overlay */}
             <div className="activity-overlay" />
-
-            {/* Activity Number */}
-            <span className="activity-number">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-
-            {/* Decorative Symbol */}
-            {/* <span className="activity-decoration">✦</span> */}
           </div>
 
-          {/* Activity Content */}
           <div className="activity-content">
-            {/* <span className="activity-label">
-              ASHRAM EXPERIENCES
-            </span> */}
-
             <h3>{activity.title}</h3>
-
-            <p>{activity.description}</p>
-
             <div className="activity-bottom-line">
               <span />
             </div>
           </div>
-
         </article>
       ))}
     </div>

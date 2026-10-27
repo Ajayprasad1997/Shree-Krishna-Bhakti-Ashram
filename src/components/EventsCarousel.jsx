@@ -114,13 +114,13 @@ export default function EventsCarousel({ events = [] }) {
 
                   <div className="devotional-event-overlay" />
 
-                  <span className="devotional-event-number">
+                  {/* <span className="devotional-event-number">
                     {String(index + 1).padStart(2, "0")}
-                  </span>
+                  </span> */}
 
-                  <span className="devotional-event-category">
+                  {/* <span className="devotional-event-category">
                     {event.category}
-                  </span>
+                  </span> */}
                 </div>
 
 

@@ -242,10 +242,7 @@ export default function Inner({ type, hideBanner = false }) {
                   </article>
                 ))}
             </div>
-            <p className="demo-note">
-              Please confirm event dates with Ashram management before
-              publishing.
-            </p>
+            
           </div>
         </section>
       )}

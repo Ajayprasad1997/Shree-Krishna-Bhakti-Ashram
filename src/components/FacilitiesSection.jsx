@@ -199,15 +199,8 @@ export default function FacilitiesSection() {
 
         {/* POPULAR FACILITIES */}
 
-        <div className="facilities-top-heading">
-          <div>
-            <span className="facilities-label">
-              <Sparkles size={15} />
-              EVERYTHING YOU NEED
-            </span>
-
-            <h3>Most Popular Facilities</h3>
-          </div>
+        <div className="facilities-top-heading text-right my-6">
+          
 
           <span className="facilities-count">
             <Check size={16} />
@@ -215,41 +208,51 @@ export default function FacilitiesSection() {
           </span>
         </div>
 
-        <div className="popular-facilities-grid">
-          {popularFacilities.map((facility, index) => {
-            const Icon = facility.icon;
+     
+<div className="popular-facilities-marquee">
+  <div className="popular-facilities-track">
+    {[0, 1].map((copy) => (
+      <div
+        className="popular-facilities-grid"
+        key={copy}
+        aria-hidden={copy === 1 ? "true" : undefined}
+      >
+        {popularFacilities.map((facility, index) => {
+          const Icon = facility.icon;
 
-            return (
-              <div
-                className="popular-facility-card"
-                key={facility.title}
-                style={{
-                  "--delay": `${index * 70}ms`,
-                }}
-              >
-                <div className="popular-facility-icon">
-                  <Icon size={27} strokeWidth={1.6} />
-                </div>
-
-                <div className="popular-facility-content">
-                  <h4>{facility.title}</h4>
-                  <p>{facility.description}</p>
-                </div>
-
-                <div className="facility-check">
-                  <Check size={15} />
-                </div>
+          return (
+            <div
+              className="popular-facility-card"
+              key={`${copy}-${facility.title}`}
+              style={{ "--delay": `${index * 70}ms` }}
+            >
+              <div className="popular-facility-icon">
+                <Icon size={27} strokeWidth={1.6} />
               </div>
-            );
-          })}
-        </div>
+
+              <div className="popular-facility-content">
+                <h4>{facility.title}</h4>
+                <p>{facility.description}</p>
+              </div>
+
+              <div className="facility-check">
+                <Check size={15} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+</div>
+
 
         {/* DECORATIVE DIVIDER */}
 
         <div className="facilities-divider">
-          <span />
+          {/* <span />
           <Flower2 size={24} strokeWidth={1.4} />
-          <span />
+          <span /> */}
         </div>
 
         {/* ALL FACILITIES */}
@@ -270,35 +273,44 @@ export default function FacilitiesSection() {
           </p>
         </div>
 
-        <div className="facilities-category-grid">
-          {facilityCategories.map((category) => {
-            const Icon = category.icon;
+    
 
-            return (
-              <article className="facility-category-card" key={category.title}>
-                <div className="facility-category-top">
-                  <div className="facility-category-icon">
-                    <Icon size={25} strokeWidth={1.6} />
-                  </div>
+<div className="facilities-master-table">
+  <div className="facilities-master-header">
+    <div>Facility Category</div>
+    <div>Available Amenities</div>
+  </div>
 
-                  <div>
-                    <h4>{category.title}</h4>
-                    <p>{category.subtitle}</p>
-                  </div>
-                </div>
+  {facilityCategories.map((category) => {
+    const Icon = category.icon;
 
-                <ul className="facility-items">
-                  {category.items.map((item) => (
-                    <li key={item}>
-                      <Check size={15} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            );
-          })}
+    return (
+      <div className="facilities-master-row" key={category.title}>
+        <div className="facilities-master-category">
+          <span className="facilities-master-icon">
+            <Icon size={21} strokeWidth={1.7} />
+          </span>
+
+          <div>
+            <h4>{category.title}</h4>
+            <p>{category.subtitle}</p>
+          </div>
         </div>
+
+        <div className="facilities-master-amenities">
+          {category.items.map((item) => (
+            <span className="facilities-master-amenity" key={item}>
+              <Check size={14} />
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+
 
         {/* ADDITIONAL INFORMATION */}
 

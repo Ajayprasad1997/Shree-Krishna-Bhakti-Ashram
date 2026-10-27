@@ -50,7 +50,8 @@ export const initial = {
   },
   rooms: Array.from({ length: 9 }, (_, i) => ({
     id: i + 1,
-    title: `Ashram Guest Room ${String(i + 1).padStart(2, "0")}`,
+    // title: `Ashram Guest Room ${String(i + 1).padStart(2, "0")}`,
+    title: `Ashram Guest Room`,
     description:
       "A peaceful, welcoming space for devotees and families visiting Vrindavan.",
     amenities: "Comfortable bedding, Attached bathroom, Peaceful surroundings",

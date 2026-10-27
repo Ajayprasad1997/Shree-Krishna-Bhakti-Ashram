@@ -14,6 +14,7 @@ import {
   Heart,
   Home as HomeIcon,
   Sun,
+   X,
    Wifi,
   Car,
   Users,
@@ -83,7 +84,11 @@ export default function Home() {
             key={i}
             className={"hero-slide " + (slide === i ? "active" : "")}
             style={{
-              backgroundImage: `linear-gradient(90deg,#1a150ed4,#1b17128a 51%,#17130e33),url('${s.image}')`,
+              backgroundImage: `linear-gradient(
+90deg,
+#080d18d1 0%,
+#0b1928b5 51%,
+#102b40c3 100%),url('${s.image}')`,
             }}
           >
             <div className="hero-inner">
@@ -149,9 +154,9 @@ export default function Home() {
               className="intro-photo"
               style={{ backgroundImage: `url('${photos.about}')` }}
             />
-            <div className="intro-seal">
+            {/* <div className="intro-seal">
               <Flower2 /> ROOTED IN DEVOTION
-            </div>
+            </div> */}
           </div>
           <div className="intro-text reveal">
             <Title
@@ -177,7 +182,7 @@ export default function Home() {
                 <small>Care for every pilgrim</small>
               </div>
             </div>
-            <Link className="text-link" href="/about">
+            <Link className="btn btn-maroon" href="/about">
               ABOUT THE ASHRAM <ArrowUpRight />
             </Link>
 
@@ -222,19 +227,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="quote-section">
-        <div className="container">
-          <Flower2 size={39} />
-          <span>THE SPIRIT OF VRINDAVAN</span>
-          <h2>
-            “Let your heart be filled with devotion,
-            <br />
-            and your journey be blessed with peace.”
-          </h2>
-          <div className="quote-line" />
-          राधे राधे
-        </div>
-      </section>
+     
       <section className="section">
         <div className="container">
           <Title
@@ -254,33 +247,165 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="section gallery">
-        <div className="container">
-          <div className="section-top">
-            <Title
-              eyebrow="GLIMPSES OF GRACE"
-              title="Our Photo"
-              accent="Gallery"
-            />
-            
-          </div>
+     
+
+<section className="section gallery">
+  <div className="container">
+    <div className="section-top">
+      <Title
+        eyebrow="GLIMPSES OF GRACE"
+        title="Our Photo"
+        accent="Gallery"
+      />
+    </div>
+
+    {(() => {
+      const [activeGalleryIndex, setActiveGalleryIndex] = useState(null);
+const galleryItems = data.gallery ?? [];
+
+const showPreviousImage = () => {
+  setActiveGalleryIndex((current) =>
+    (current - 1 + galleryItems.length) % galleryItems.length
+  );
+};
+
+const showNextImage = () => {
+  setActiveGalleryIndex((current) =>
+    (current + 1) % galleryItems.length
+  );
+};
+
+      return (
+        <>
           <div className="preview-gallery">
-            {data.gallery.slice(1 / 4).map((g) => (
-              <Link href="/gallery" key={g.id}>
-                <img src={g.image} alt={g.title} />
-                <span>{g.title} ↗</span>
-              </Link>
-            ))}
+            <div className="preview-gallery-track">
+              {[0, 1].map((copy) => (
+                <div
+                  className="preview-gallery-group"
+                  key={copy}
+                  aria-hidden={copy === 1 ? "true" : undefined}
+                >
+                  {galleryItems.map((g, index) => (
+                    <button
+                      type="button"
+                      className="preview-gallery-item"
+                      key={`${copy}-${g.id}`}
+                      onClick={() => setActiveGalleryIndex(index)}
+                      tabIndex={copy === 1 ? -1 : 0}
+                      aria-label={`View ${g.title}`}
+                    >
+                      <img
+                        src={g.image}
+                        alt={copy === 0 ? g.title : ""}
+                      />
+                      {/* <span className="preview-gallery-caption">
+                        <span>{g.title}</span>
+                        <span className="preview-gallery-icon">↗</span>
+                      </span> */}
+                    </button>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
+
           <div className="center-action">
             <Link className="btn btn-maroon" href="/gallery">
               View Full Gallery <ArrowRight size={17} />
             </Link>
           </div>
+
+          {activeGalleryIndex !== null &&
+            galleryItems[activeGalleryIndex] && (
+              <div
+                className="gallery-popup"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Gallery image preview"
+                onClick={() => setActiveGalleryIndex(null)}
+              >
+                <button
+                  type="button"
+                  className="gallery-popup-close"
+                  aria-label="Close image"
+                  onClick={() => setActiveGalleryIndex(null)}
+                >
+                  <X size={23} />
+                </button>
+
+                {galleryItems.length > 1 && (
+                  <button
+                    type="button"
+                    className="gallery-popup-nav gallery-popup-prev"
+                    aria-label="Previous image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveGalleryIndex(
+                        (activeGalleryIndex - 1 + galleryItems.length) %
+                          galleryItems.length
+                      );
+                    }}
+                  >
+                    <ChevronLeft size={26} />
+                  </button>
+                )}
+
+                <div
+                  className="gallery-popup-content"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <img
+                    key={galleryItems[activeGalleryIndex].id}
+                    src={galleryItems[activeGalleryIndex].image}
+                    alt={galleryItems[activeGalleryIndex].title}
+                  />
+                  <div className="gallery-popup-caption">
+                    <span>{galleryItems[activeGalleryIndex].title}</span>
+                    <span>
+                      {String(activeGalleryIndex + 1).padStart(2, "0")} /{" "}
+                      {String(galleryItems.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                </div>
+
+                {galleryItems.length > 1 && (
+                  <button
+                    type="button"
+                    className="gallery-popup-nav gallery-popup-next"
+                    aria-label="Next image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveGalleryIndex(
+                        (activeGalleryIndex + 1) % galleryItems.length
+                      );
+                    }}
+                  >
+                    <ChevronRight size={26} />
+                  </button>
+                )}
+              </div>
+            )}
+        </>
+      );
+    })()}
+  </div>
+</section>
+
+
+<EventsCarousel events={data.events} />
+ <section className="quote-section">
+        <div className="container">
+          <Flower2 size={39} />
+          <span>THE SPIRIT OF VRINDAVAN</span>
+          <h2>
+            “Let your heart be filled with devotion,
+            <br />
+            and your journey be blessed with peace.”
+          </h2>
+          <div className="quote-line" />
+          राधे राधे
         </div>
       </section>
-<EventsCarousel events={data.events} />
-
       {/* <section className="section">
         <div className="container">
           <Title
